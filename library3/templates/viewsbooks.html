@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container px-2">
+<h2 class="text-center mt-3">views  page</h2>
+<table class="table table-bordered border border-1 border-black">
+<tr>
+
+    <th>COVER</th><th>TITLE</th><th>AUTHOR</th><th>Price</th>
+    <th>PAGES</th><th>LANGUAGE</th><th>PDF</th>
+    <th>VIEW</th>
+    <th>EDIT</th>
+    <th>DELETE</th>
+</tr>
+    {% for i in book %}
+
+ <tr>
+<td><img src="{{i.cover.url}}" height="100px" width="100px"></td>
+ <td>{{i.title}}</td>
+ <td>{{i.author}}</td>
+ <td>{{i.price}}</td>
+ <td>{{i.pages}}</td>
+  <td>{{i.language}}</td>
+<!--<td><img src="{{i.cover.url}}" height="100px" width="100px"></td>-->
+<td><a href="{{i.pdf.url}}">DOWNLOAD</a></td>
+ <th><a href="{% url 'books:book' i.id %}" class="btn btn-outline-primary">view</a></th>
+ <th><a href="{% url 'books:edit'  i.id %}" class="btn btn-outline-primary">edit</a></th>
+  <th><a href="{% url 'books:delete' i.id %}" class="btn btn-outline-primary">delete</a></th>
+ </tr>
+ {% endfor %}
+</table>
+</div>
+{% endblock %}
+
