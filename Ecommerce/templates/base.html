@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+   <head>
+      <!-- Basic -->
+      <meta charset="utf-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <!-- Mobile Metas -->
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+      <!-- Site Metas -->
+      <meta name="keywords" content="" />
+      <meta name="description" content="" />
+      <meta name="author" content="" />
+      <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="">
+      <title>myshop</title>
+      <!-- bootstrap core css -->
+      <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" />
+      <!-- font awesome style -->
+      <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" />
+      <!-- Custom styles for this template -->
+      <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+      <!-- responsive style -->
+      <link href="{% static 'css/responsive.css' %}" rel="stylesheet" />
+   </head>
+   <body>
+      <div class="hero_area">
+         <!-- header section strats -->
+         <header class="header_section">
+
+            <div class="container-fluid">
+               <nav class="navbar navbar-expand-lg custom_nav-container ">
+                  <a class="navbar-brand fs-3 fw-bold"> <h2>MYSHOP</h2></a>
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar_toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                     <ul class="navbar-nav mx-auto mb-2 mb-lg-0 fs-5 fw-bold">
+                        <li class="nav-item">
+                           <a class="nav-link" aria-current="page" href="{% url 'shop:categories' %}">Home</a>
+                        </li>
+
+
+                       <li class="nav-item dropdown">
+
+                           <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"> <span class="nav-label">Allcategories <span class="caret"></span></a>
+                           <ul class="dropdown-menu">
+                               {% for i in links %}
+                               <li><a href="{% url 'shop:products' i.id %} ">{{i.name}}</a></li>
+                               {% endfor %}
+                           </ul>
+                          </li>
+
+                            {% if user.is_authenticated %}
+
+                            {% if user.is_superuser == False %}<!--normal user -->
+                         <li class="nav-item">
+                           <a class="nav-link" href="{% url 'cart:cart' %}"><i class="fa fa-shopping-cart fs-2" aria-hidden="true"></i><sup class="mx-2 fs-5">{{c}}</sup></a>
+                        </li>
+                         <li class="nav-item">
+                              <a class="nav-link" aria-current="page" href="{% url 'cart:orderview' %}">your orders</a>
+                          </li>
+                           {% else %}
+
+                         <li class="nav-item">
+                          <a class="nav-link" aria-current="page" href="{% url 'shop:addcat' %}">AddCategories</a>
+
+
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{% url 'shop:addpro' %}">AddProducts</a>
+                       </li>
+                       {% endif %}
+                       <li class="nav-item">
+                           <a class="nav-link" href="{% url 'shop:logout' %}">logout</a>
+                        </li>
+                          {% else %}
+
+                        <li class="nav-item">
+                           <a class="nav-link"  aria-current="page" href="{% url 'shop:register' %}">Register</a>
+                        </li>
+                        <li class="nav-item">
+                           <a class="nav-link" aria-current="page" href="{% url 'shop:login' %}">Login</a>
+                        </li>
+                          {% endif %}
+                    <!--    <form class="d-flex justify content-between" method="POST" action="{% url 'search:search' %}">
+
+                          {% csrf_token %}
+                          <input class="border border-dark  w-50" type="search" name="q"  placeholder="search" aria-label="search">
+
+
+                        </form>-->
+                         <div class="col-6 col-md-4 order-2 order-md-1 site-search-icon text-left">
+                         <form  method="POST" action="{% url 'search:search' %}" class="site-block-top-search">
+                             {% csrf_token %}
+                <span class="icon icon-search2"></span>
+                <input type="text" class="form-control border-0"   name="q" placeholder="Search" aria-label="search">
+                         </div>
+              </form>
+
+                   </ul>
+                  </div>
+               </nav>
+            </div>
+         </header>
+         <!-- end header section -->
+         <!-- slider section -->
+          <div class="container-fluid">
+{% block content %}
+{% endblock %}
+       </div>
+
+
+
+   <!--footer-->
+    <footer>
+         <div class="container">
+            <div class="row">
+               <div class="col-md-4">
+                   <div class="full">
+                      <div class="logo_footer">
+                        <p><strong><h2>MYSHOP</h2></strong>
+                      </div>
+                      <div class="information_f">
+                        <p><strong>ADDRESS:</strong> Plankal thadathi(h) pathanamthitta p.o</p>
+                        <p><strong>TELEPHONE:</strong> +91 987 654 3210</p>
+                        <p><strong>EMAIL:</strong> myshop@gmail.com</p>
+                      </div>
+                   </div>
+               </div>
+               <div class="col-md-8">
+                  <div class="row">
+                  <div class="col-md-7">
+                     <div class="row">
+                        <div class="col-md-6">
+                     <div class="widget_menu">
+                        <h3>Menu</h3>
+                        <ul>
+                           <li><a href="#">Home</a></li>
+                           <li><a href="#">About</a></li>
+                           <li><a href="#">Services</a></li>
+                           <li><a href="#">Testimonial</a></li>
+                           <li><a href="#">your orders</a></li>
+                           <li><a href="#">search</a></li>
+                        </ul>
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     <div class="widget_menu">
+                        <h3>Account</h3>
+                        <ul>
+                           <li><a href="#">Account</a></li>
+                           <li><a href="#">Checkout</a></li>
+                           <li><a href="#">Login</a></li>
+                           <li><a href="#">Register</a></li>
+                           <li><a href="#">Shopping</a></li>
+                           <li><a href="#">Widget</a></li>
+                        </ul>
+                     </div>
+                  </div>
+                     </div>
+                  </div>
+                  <div class="col-md-5">
+                     <div class="widget_menu">
+                        <h3>Newsletter</h3>
+                        <div class="information_f">
+                          <p>Subscribe by our newsletter and get update protidin.</p>
+                        </div>
+                        <div class="form_sub">
+                           <form>
+                              <fieldset>
+                                 <div class="field">
+                                    <input type="email" placeholder="Enter Your Mail" name="email" />
+                                    <input type="submit" value="Subscribe" />
+                                 </div>
+                              </fieldset>
+                           </form>
+                        </div>
+                     </div>
+                  </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </footer>
+      <!-- footer end -->
+      <div class="cpy_">
+         <p class="mx-auto">© 2024 ALL Rights <a href="https://html.design/"></a><br>
+
+            Distributed By <a href="https://themewagon.com/" target="_blank"> dhanya manoj</a>
+
+         </p>
+      </div>
+      <!-- jQery -->
+      <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+      <!-- popper js -->
+      <script src="{% static 'js/popper.min.js' %}"></script>
+      <!-- bootstrap js -->
+      <script src="{% static 'js/bootstrap.js' %}"></script>
+      <!-- custom js -->
+      <script src="{% static 'js/custom.js' %}"></script>
+   </body>
+</html>
